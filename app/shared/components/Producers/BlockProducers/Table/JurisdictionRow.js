@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Table } from 'semantic-ui-react';
+import { Table, Popup } from 'semantic-ui-react';
 
 export default class JurisdictionRow extends Component<Props> {
   render() {
@@ -37,10 +37,28 @@ export default class JurisdictionRow extends Component<Props> {
                     {row.code}
                   </Table.Cell>
                   <Table.Cell singleLine>
-                    {row.name}
+                    <Popup
+                      content={row.name}
+                      hoverable
+                      position="right center"
+                      trigger={(
+                        <span className="jurisdiction-wrapper">
+                          {row.name}
+                        </span>
+                      )}
+                    />
                   </Table.Cell>
                   <Table.Cell singleLine>
-                    {row.description}
+                    <Popup
+                      content={row.description}
+                      hoverable
+                      position="right center"
+                      trigger={(
+                        <span className="jurisdiction-wrapper">
+                          {row.description}
+                        </span>
+                      )}
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))}

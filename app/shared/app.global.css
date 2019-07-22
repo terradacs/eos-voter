@@ -29,6 +29,14 @@ table thead .no-jurisdiction {
   text-align: center !important;
 }
 
+.jurisdiction-wrapper {
+  display: inline-block;
+  width: 200px;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  white-space: pre-wrap
+}
+
 .table-scroll {
   overflow-y: auto;
   max-height: 200px;
