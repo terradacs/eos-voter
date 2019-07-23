@@ -37,28 +37,14 @@ export default class JurisdictionRow extends Component<Props> {
                     {row.code}
                   </Table.Cell>
                   <Table.Cell singleLine>
-                    <Popup
-                      content={row.name}
-                      hoverable
-                      position="right center"
-                      trigger={(
-                        <span className="jurisdiction-wrapper">
-                          {row.name}
-                        </span>
-                      )}
-                    />
+                    <span className="jurisdiction-wrapper-name">
+                      {row.name}
+                    </span>
                   </Table.Cell>
                   <Table.Cell singleLine>
-                    <Popup
-                      content={row.description}
-                      hoverable
-                      position="right center"
-                      trigger={(
-                        <span className="jurisdiction-wrapper">
-                          {row.description}
-                        </span>
-                      )}
-                    />
+                    <span className="jurisdiction-wrapper-description">
+                      {row.description}
+                    </span>
                   </Table.Cell>
                 </Table.Row>
               ))}
