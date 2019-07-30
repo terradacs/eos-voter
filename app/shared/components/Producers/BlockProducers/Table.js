@@ -158,8 +158,11 @@ class ProducersTable extends Component<Props> {
                   isClicked={isClicked}
                   jurisdictions={jurisdictions}
                   actions={actions}
+                  rows={this.state.rows}
+                  currentProducer={this.state.nextProducer === producer.owner}
+                  tester="wakachaka"
                 />
-                {this.state.visible[producer.owner] &&
+                {/* {this.state.visible[producer.owner] &&
                 <Table.Row>
                   <Table.Cell className="jurisdiction-row" colSpan={100}>
                     <JurisdictionRow
@@ -173,7 +176,7 @@ class ProducersTable extends Component<Props> {
                     />
                   </Table.Cell>
                 </Table.Row>
-                }
+                } */}
               </React.Fragment>
 
             );

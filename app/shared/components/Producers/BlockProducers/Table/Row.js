@@ -1,19 +1,31 @@
 // @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Button, Header, Icon, Popup, Progress, Responsive, Table } from 'semantic-ui-react';
+import { Button, Header, Icon, Popup, Progress, Responsive, Table, TableBody } from 'semantic-ui-react';
 import { isEqual } from 'lodash';
 
 import DangerLink from '../../../Global/Modal/DangerLink';
 import ProducersVoteWeight from '../Vote/Weight';
 import { getProducerJurisdiction } from '../../../../actions/jurisdictions';
+import JurisdictionRow from './JurisdictionRow';
 
 class ProducersTableRow extends Component<Props> {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     hover: false
+  //   };
+  // }
+
   shouldComponentUpdate = (nextProps) =>
     !isEqual(this.props.producer.key, nextProps.producer.key)
     || !isEqual(this.props.isValidUser, nextProps.isValidUser)
     || !isEqual(this.props.isSelected, nextProps.isSelected)
     || !isEqual(this.props.isClicked, nextProps.isClicked);
+
+  // toggleHover() {
+  //   this.setState({ hover: !this.state.hover });
+  // }
 
   render() {
     const {
@@ -34,7 +46,11 @@ class ProducersTableRow extends Component<Props> {
       setProducerJurisdiction,
       setRowVisbilitity,
       isClicked,
-      actions
+      jurisdictions,
+      actions,
+      rows,
+      currentProducer,
+      tester
     } = this.props;
 
     const epoch = 946684800000;
@@ -108,7 +124,7 @@ class ProducersTableRow extends Component<Props> {
               )}
             />
             )}
-          {(producersJurisdiction) && (
+          {/* {(producersJurisdiction) && (
             <Popup
               // content={t('producer_vote_description', { chainSymbol: connection.chainSymbol })}
               // header={t('producer_vote_header', { producer: producer.owner })}
@@ -127,6 +143,45 @@ class ProducersTableRow extends Component<Props> {
                     ? () => { setRowVisbilitity(producer.owner); }
                     : () => { actions.getProducerJurisdiction(producer.owner); setRowVisbilitity(producer.owner); }
                   }
+                />
+              )}
+            />
+            )} */}
+          {(producersJurisdiction) && (
+            <Popup
+              // content={t('producer_vote_description', { chainSymbol: connection.chainSymbol })}
+              // header={t('producer_vote_header', { producer: producer.owner })}
+              // header="Jurisdictions"
+              content={
+                <JurisdictionRow
+                  rows={rows}
+                  // setRowVisbilitity={setRowVisbilitity}
+                  codesLabel={t('block_producer_jurisdictions_code_table_header')}
+                  jurisdictionLabel={t('block_producer_jurisdictions_jurisdiction_table_header')}
+                  descriptionLabel={t('block_producer_jurisdictions_description_table_header')}
+                  jurisdictions={jurisdictions}
+                  currentProducer={producer.owner}
+
+                />
+              }
+              hoverable
+              position="left center"
+              // actions={actions.getProducerJurisdiction(producer.owner)}
+              trigger={(
+                <Button
+                  // onMouseEnter={this.toggleHover}
+                  // onMouseLeave={this.toggleHover}
+                  // color={isClicked ? 'green' : 'grey'}
+                  disabled={!isValidUser || isProxying}
+                  icon="map marker alternate"
+                  size="small"
+                  onMouseEnter={() => { actions.getProducerJurisdiction(producer.owner); }}
+                  // onMouseEnter={() => { console.log('#### PAUL', producer.owner); }}
+
+                  // {...actions.getProducerJurisdiction(producer.owner)}
+
+                  // {...setRowVisbilitity(producer.owner)}
+                  // onClick={() => { actions.getProducerJurisdiction(producer.owner); }}
                 />
               )}
             />
@@ -214,3 +269,28 @@ class ProducersTableRow extends Component<Props> {
 }
 
 export default translate('producers')(ProducersTableRow);
+
+
+
+// content={<Table className="ui striped unstackable">
+//                 <Table.Header>
+//                   <Table.Row>
+//                     <Table.HeaderCell>
+//                       Juris
+//                     </Table.HeaderCell>
+//                     <Table.HeaderCell>
+//                       Juris
+//                     </Table.HeaderCell>
+//                   </Table.Row>
+//                 </Table.Header>
+//                 <Table.Body>
+//                   <Table.Row>
+//                     <Table.Cell>
+//                       Bleefesfsefsefsfsefsefseffes
+//                     </Table.Cell>
+//                     <Table.Cell>
+//                       Bleefesfsefsefsfsefsefseffes
+//                     </Table.Cell>
+//                   </Table.Row>
+//                 </Table.Body>
+//               </Table>}

@@ -9,7 +9,13 @@ export default class JurisdictionRow extends Component<Props> {
       jurisdictionLabel,
       descriptionLabel,
       jurisdictions,
+      currentProducer
     } = this.props;
+
+    console.log('##### rows', this.props.rows);
+    console.log('##### producer', this.props.jurisdictions.producer);
+    console.log('##### currentProducer', currentProducer);
+
 
     return (
       <div className="table-scroll">
@@ -52,30 +58,32 @@ export default class JurisdictionRow extends Component<Props> {
           </Table>
         }
         {this.props.rows.length === 0 && (this.props.currentProducer ? jurisdictions.PRODUCER === 'PENDING' : false) &&
-          <Table
-            className="ui striped unstackable jurisdiction-table"
-          >
-            <Table.Header className="fullWidth">
-              <Table.Row className="active">
-                <Table.HeaderCell className="no-jurisdiction">
-                  Loading...
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-          </Table>
+          // <Table
+          //   className="ui striped unstackable jurisdiction-table"
+          // >
+          //   <Table.Header className="fullWidth">
+          //     <Table.Row className="active">
+          //       <Table.HeaderCell className="no-jurisdiction">
+          //         Loading...
+          //       </Table.HeaderCell>
+          //     </Table.Row>
+          //   </Table.Header>
+          // </Table>
+          <span>Loading...</span>
         }
         {this.props.rows.length === 0 && (this.props.currentProducer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
-          <Table
-            className="ui striped unstackable jurisdiction-table"
-          >
-            <Table.Header className="fullWidth">
-              <Table.Row className="active">
-                <Table.HeaderCell className="no-jurisdiction">
-                  No jurisdictions.
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-          </Table>
+          // <Table
+          //   className="ui striped unstackable jurisdiction-table"
+          // >
+          //   <Table.Header className="fullWidth">
+          //     <Table.Row className="active">
+          //       <Table.HeaderCell className="no-jurisdiction">
+          //         No jurisdictions.
+          //       </Table.HeaderCell>
+          //     </Table.Row>
+          //   </Table.Header>
+          // </Table>
+          <span>No jurisdictions.</span>
         }
       </div>
     );
