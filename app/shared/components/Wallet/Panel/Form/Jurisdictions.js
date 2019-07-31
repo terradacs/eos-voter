@@ -1,17 +1,46 @@
 // @flow
 import React, { Component } from 'react';
 import { I18n } from 'react-i18next';
-import { Form } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 export default class JurisdictionsForm extends Component<Props> {
   state = {
-    options: []
+    options: [],
+    searchedOptions: []
+  }
+
+  constructor(props) {
+    super(props);
+    this.dropdownRef = React.createRef();
   }
 
   componentDidMount() {
     const { actions, jurisdictions } = this.props;
+    const interval = setInterval(() => {
+      if (this.dropdownRef.current !== null) {
+        this.prepareDropdown();
+        clearInterval(interval);
+      }
+    });
     actions.getJurisdictions();
     this.makeOptions(jurisdictions);
+  }
+
+  prepareDropdown() {
+    const ref = this.dropdownRef.current.ref;
+    const child = ref.children;
+    for (let i = 0; i < child.length; i += 1) {
+      if (child[i].tagName === 'A') {
+        ref.removeChild(child[i]);
+        i -= 1;
+      }
+    }
+    if (document.getElementById('selectedItems') === null) {
+      const div = document.createElement('div');
+      div.id = 'selectedItems';
+      div.innerText = `Selected items: ${this.props.jurisdictions.choosenJurisdictions.length}`;
+      ref.insertBefore(div, ref.firstChild);
+    }
   }
 
   makeOptions(jurisdictions) {
@@ -53,7 +82,8 @@ export default class JurisdictionsForm extends Component<Props> {
       <I18n ns="wallet">
         {
           (t) => (
-            <Form.Dropdown
+            <Dropdown
+              ref={this.dropdownRef}
               options={this.state.options}
               placeholder="Select Jurisdiction"
               fluid
@@ -61,6 +91,7 @@ export default class JurisdictionsForm extends Component<Props> {
               multiple
               selection
               value={newValue}
+              scrolling
               onChange={(e, value) => this.onChange(value)}
               label={label}
             />
