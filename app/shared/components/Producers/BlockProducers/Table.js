@@ -64,15 +64,15 @@ class ProducersTable extends Component<Props> {
     });
   }
 
-  setRowVisbilitity = (owner) => {
-    this.setState({
-      nextProducer: owner
-    });
-    this.state.visible[owner] = !this.state.visible[owner];
-    this.setState({
-      visible: this.state.visible
-    });
-  }
+  // setRowVisbilitity = (owner) => {
+  //   this.setState({
+  //     nextProducer: owner
+  //   });
+  //   this.state.visible[owner] = !this.state.visible[owner];
+  //   this.setState({
+  //     visible: this.state.visible
+  //   });
+  // }
 
   querying() {
     const {

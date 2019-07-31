@@ -9,17 +9,16 @@ export default class JurisdictionRow extends Component<Props> {
       jurisdictionLabel,
       descriptionLabel,
       jurisdictions,
-      currentProducer
     } = this.props;
 
     console.log('##### rows', this.props.rows);
-    console.log('##### producer', this.props.jurisdictions.producer);
-    console.log('##### currentProducer', currentProducer);
+    // console.log('##### producer', this.props.jurisdictions.producer);
+    console.log('##### currentProducer', this.props.producer);
 
 
     return (
       <div className="table-scroll">
-        {this.props.rows.length > 0 && (this.props.currentProducer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
+        {this.props.rows[this.props.producer] && this.props.rows[this.props.producer].length > 0 && (this.props.producer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
           <Table
             className="ui striped unstackable jurisdiction-table"
           >
@@ -37,7 +36,7 @@ export default class JurisdictionRow extends Component<Props> {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {this.props.rows.length > 0 && this.props.rows.map((row, idx) => (
+              {this.props.rows[this.props.producer].map((row, idx) => (
                 <Table.Row key={idx}>
                   <Table.Cell singleLine>
                     {row.code}
@@ -57,7 +56,7 @@ export default class JurisdictionRow extends Component<Props> {
             </Table.Body>
           </Table>
         }
-        {this.props.rows.length === 0 && (this.props.currentProducer ? jurisdictions.PRODUCER === 'PENDING' : false) &&
+        {(!this.props.rows[this.props.producer] || this.props.rows[this.props.producer].length === 0) && (this.props.producer ? jurisdictions.PRODUCER === 'PENDING' : true) &&
           // <Table
           //   className="ui striped unstackable jurisdiction-table"
           // >
@@ -71,7 +70,7 @@ export default class JurisdictionRow extends Component<Props> {
           // </Table>
           <span>Loading...</span>
         }
-        {this.props.rows.length === 0 && (this.props.currentProducer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
+        {!this.props.rows[this.props.producer] && (this.props.producer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
           // <Table
           //   className="ui striped unstackable jurisdiction-table"
           // >

@@ -149,39 +149,26 @@ class ProducersTableRow extends Component<Props> {
             )} */}
           {(producersJurisdiction) && (
             <Popup
-              // content={t('producer_vote_description', { chainSymbol: connection.chainSymbol })}
-              // header={t('producer_vote_header', { producer: producer.owner })}
-              // header="Jurisdictions"
+              className="jurisdiction-popup"
+              hoverable
+              position="left center"
+              mouseEnterDelay="1000"
               content={
                 <JurisdictionRow
                   rows={rows}
-                  // setRowVisbilitity={setRowVisbilitity}
                   codesLabel={t('block_producer_jurisdictions_code_table_header')}
                   jurisdictionLabel={t('block_producer_jurisdictions_jurisdiction_table_header')}
                   descriptionLabel={t('block_producer_jurisdictions_description_table_header')}
                   jurisdictions={jurisdictions}
-                  currentProducer={producer.owner}
-
+                  producer={producer.owner}
                 />
               }
-              hoverable
-              position="left center"
-              // actions={actions.getProducerJurisdiction(producer.owner)}
               trigger={(
                 <Button
-                  // onMouseEnter={this.toggleHover}
-                  // onMouseLeave={this.toggleHover}
-                  // color={isClicked ? 'green' : 'grey'}
                   disabled={!isValidUser || isProxying}
                   icon="map marker alternate"
                   size="small"
-                  onMouseEnter={() => { actions.getProducerJurisdiction(producer.owner); }}
-                  // onMouseEnter={() => { console.log('#### PAUL', producer.owner); }}
-
-                  // {...actions.getProducerJurisdiction(producer.owner)}
-
-                  // {...setRowVisbilitity(producer.owner)}
-                  // onClick={() => { actions.getProducerJurisdiction(producer.owner); }}
+                  onMouseEnter={() => { console.log('#### Paul', rows); actions.getProducerJurisdiction(producer.owner); }}
                 />
               )}
             />

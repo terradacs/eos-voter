@@ -24,11 +24,6 @@ table .jurisdiction-table {
   border-top: 0 !important;
 }
 
-/* table thead .no-jurisdiction {
-  border-bottom: 0 !important;
-  text-align: center !important;
-} */
-
 .table-scroll {
   overflow-y: auto;
   max-height: 200px;
@@ -89,12 +84,6 @@ div.visible.menu.transition>div.item>span.text {
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
-}
-
-.ui.table thead tr:first-child > th {
-  position: sticky !important;
-  top: 0;
-  z-index: 2;
 }
 
 .ui.progress .bar {
