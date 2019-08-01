@@ -8,7 +8,6 @@ import { get } from 'dot-prop-immutable';
 import ProducersModalInfo from './Modal/Info';
 import ProducersTableRow from './Table/Row';
 import ProducersVoteWeight from './Vote/Weight';
-import JurisdictionRow from './Table/JurisdictionRow';
 
 class ProducersTable extends Component<Props> {
   constructor(props) {
@@ -17,8 +16,6 @@ class ProducersTable extends Component<Props> {
       query: false,
       viewing: false,
       rows: [],
-      visible: [],
-      nextProducer: ''
     };
   }
 
@@ -63,16 +60,6 @@ class ProducersTable extends Component<Props> {
       rows: this.state.rows
     });
   }
-
-  // setRowVisbilitity = (owner) => {
-  //   this.setState({
-  //     nextProducer: owner
-  //   });
-  //   this.state.visible[owner] = !this.state.visible[owner];
-  //   this.setState({
-  //     visible: this.state.visible
-  //   });
-  // }
 
   querying() {
     const {
@@ -132,7 +119,6 @@ class ProducersTable extends Component<Props> {
         <Table.Body key="FullResults">
           {fullResults.map((producer, idx) => {
             const isSelected = (selected.indexOf(producer.owner) !== -1);
-            const isClicked = this.state.visible[producer.owner];
             const contracts = get(connection, 'supportedContracts', []);
             const hasInfo = contracts && contracts.includes('producerinfo') && !!(get(producers.producersInfo, producer.owner));
             return (
@@ -153,30 +139,10 @@ class ProducersTable extends Component<Props> {
                   system={system}
                   settings={settings}
                   totalVoteWeight={totalVoteWeight}
-                  setProducerJurisdiction={this.setProducerJurisdiction}
-                  setRowVisbilitity={this.setRowVisbilitity}
-                  isClicked={isClicked}
                   jurisdictions={jurisdictions}
                   actions={actions}
                   rows={this.state.rows}
-                  currentProducer={this.state.nextProducer === producer.owner}
-                  tester="wakachaka"
                 />
-                {/* {this.state.visible[producer.owner] &&
-                <Table.Row>
-                  <Table.Cell className="jurisdiction-row" colSpan={100}>
-                    <JurisdictionRow
-                      rows={this.state.rows[producer.owner] ? this.state.rows[producer.owner] : []}
-                      setRowVisbilitity={this.setRowVisbilitity}
-                      codesLabel={t('block_producer_jurisdictions_code_table_header')}
-                      jurisdictionLabel={t('block_producer_jurisdictions_jurisdiction_table_header')}
-                      descriptionLabel={t('block_producer_jurisdictions_description_table_header')}
-                      jurisdictions={jurisdictions}
-                      currentProducer={this.state.nextProducer === producer.owner}
-                    />
-                  </Table.Cell>
-                </Table.Row>
-                } */}
               </React.Fragment>
 
             );

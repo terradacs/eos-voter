@@ -44,6 +44,10 @@ table .jurisdiction-table {
   word-break: break-all;
 }
 
+.jurisdiction-button:hover {
+  background-color: grey !important;
+}
+
 .jurisdiction-wrapper-name {
   display: inline-block;
   width: 150px;

@@ -1,31 +1,18 @@
 // @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Button, Header, Icon, Popup, Progress, Responsive, Table, TableBody } from 'semantic-ui-react';
+import { Button, Header, Icon, Popup, Progress, Responsive, Table } from 'semantic-ui-react';
 import { isEqual } from 'lodash';
 
 import DangerLink from '../../../Global/Modal/DangerLink';
 import ProducersVoteWeight from '../Vote/Weight';
-import { getProducerJurisdiction } from '../../../../actions/jurisdictions';
 import JurisdictionRow from './JurisdictionRow';
 
 class ProducersTableRow extends Component<Props> {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     hover: false
-  //   };
-  // }
-
   shouldComponentUpdate = (nextProps) =>
     !isEqual(this.props.producer.key, nextProps.producer.key)
     || !isEqual(this.props.isValidUser, nextProps.isValidUser)
-    || !isEqual(this.props.isSelected, nextProps.isSelected)
-    || !isEqual(this.props.isClicked, nextProps.isClicked);
-
-  // toggleHover() {
-  //   this.setState({ hover: !this.state.hover });
-  // }
+    || !isEqual(this.props.isSelected, nextProps.isSelected);
 
   render() {
     const {
@@ -43,14 +30,9 @@ class ProducersTableRow extends Component<Props> {
       settings,
       t,
       totalVoteWeight,
-      setProducerJurisdiction,
-      setRowVisbilitity,
-      isClicked,
       jurisdictions,
       actions,
       rows,
-      currentProducer,
-      tester
     } = this.props;
 
     const epoch = 946684800000;
@@ -124,29 +106,6 @@ class ProducersTableRow extends Component<Props> {
               )}
             />
             )}
-          {/* {(producersJurisdiction) && (
-            <Popup
-              // content={t('producer_vote_description', { chainSymbol: connection.chainSymbol })}
-              // header={t('producer_vote_header', { producer: producer.owner })}
-              header="Jurisdiction"
-              content="Description..."
-              hoverable
-              position="right center"
-              trigger={(
-                <Button
-                  color={isClicked ? 'green' : 'grey'}
-                  disabled={!isValidUser || isProxying}
-                  icon={isClicked ? 'map marker' : 'map marker alternate'}
-                  size="small"
-                  onClick={
-                    (isClicked)
-                    ? () => { setRowVisbilitity(producer.owner); }
-                    : () => { actions.getProducerJurisdiction(producer.owner); setRowVisbilitity(producer.owner); }
-                  }
-                />
-              )}
-            />
-            )} */}
           {(producersJurisdiction) && (
             <Popup
               className="jurisdiction-popup"
@@ -165,10 +124,11 @@ class ProducersTableRow extends Component<Props> {
               }
               trigger={(
                 <Button
+                  className="jurisdiction-button"
                   disabled={!isValidUser || isProxying}
                   icon="map marker alternate"
                   size="small"
-                  onMouseEnter={() => { console.log('#### Paul', rows); actions.getProducerJurisdiction(producer.owner); }}
+                  onMouseEnter={() => { actions.getProducerJurisdiction(producer.owner); }}
                 />
               )}
             />
@@ -256,28 +216,3 @@ class ProducersTableRow extends Component<Props> {
 }
 
 export default translate('producers')(ProducersTableRow);
-
-
-
-// content={<Table className="ui striped unstackable">
-//                 <Table.Header>
-//                   <Table.Row>
-//                     <Table.HeaderCell>
-//                       Juris
-//                     </Table.HeaderCell>
-//                     <Table.HeaderCell>
-//                       Juris
-//                     </Table.HeaderCell>
-//                   </Table.Row>
-//                 </Table.Header>
-//                 <Table.Body>
-//                   <Table.Row>
-//                     <Table.Cell>
-//                       Bleefesfsefsefsfsefsefseffes
-//                     </Table.Cell>
-//                     <Table.Cell>
-//                       Bleefesfsefsefsfsefsefseffes
-//                     </Table.Cell>
-//                   </Table.Row>
-//                 </Table.Body>
-//               </Table>}

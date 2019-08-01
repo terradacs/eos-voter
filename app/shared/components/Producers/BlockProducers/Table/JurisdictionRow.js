@@ -11,16 +11,11 @@ export default class JurisdictionRow extends Component<Props> {
       jurisdictions,
     } = this.props;
 
-    console.log('##### rows', this.props.rows);
-    // console.log('##### producer', this.props.jurisdictions.producer);
-    console.log('##### currentProducer', this.props.producer);
-
-
     return (
       <div className="table-scroll">
         {this.props.rows[this.props.producer] && this.props.rows[this.props.producer].length > 0 && (this.props.producer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
           <Table
-            className="ui striped unstackable jurisdiction-table"
+            className="ui striped unstackable small jurisdiction-table"
           >
             <Table.Header className="fullWidth">
               <Table.Row className="active">
@@ -56,32 +51,13 @@ export default class JurisdictionRow extends Component<Props> {
             </Table.Body>
           </Table>
         }
-        {(!this.props.rows[this.props.producer] || this.props.rows[this.props.producer].length === 0) && (this.props.producer ? jurisdictions.PRODUCER === 'PENDING' : true) &&
-          // <Table
-          //   className="ui striped unstackable jurisdiction-table"
-          // >
-          //   <Table.Header className="fullWidth">
-          //     <Table.Row className="active">
-          //       <Table.HeaderCell className="no-jurisdiction">
-          //         Loading...
-          //       </Table.HeaderCell>
-          //     </Table.Row>
-          //   </Table.Header>
-          // </Table>
+        {(!this.props.rows[this.props.producer] || this.props.rows[this.props.producer].length === 0) && jurisdictions.PRODUCER === 'PENDING' &&
           <span>Loading...</span>
         }
-        {!this.props.rows[this.props.producer] && (this.props.producer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
-          // <Table
-          //   className="ui striped unstackable jurisdiction-table"
-          // >
-          //   <Table.Header className="fullWidth">
-          //     <Table.Row className="active">
-          //       <Table.HeaderCell className="no-jurisdiction">
-          //         No jurisdictions.
-          //       </Table.HeaderCell>
-          //     </Table.Row>
-          //   </Table.Header>
-          // </Table>
+        {(jurisdictions.PRODUCER === 'FAILURE' || jurisdictions.ALL === "FAILURE") &&
+          <span>Error fetching jurisdictions.</span>
+        }
+        {(!this.props.rows[this.props.producer] || this.props.rows[this.props.producer].length === 0) && (this.props.producer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
           <span>No jurisdictions.</span>
         }
       </div>
