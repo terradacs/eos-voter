@@ -1,10 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Header, Icon, Message, Segment, Transition, Table } from 'semantic-ui-react';
+import { Header, Icon, Message, Segment, Transition, Table, Button } from 'semantic-ui-react';
 
 import ExplorerLink from '../../../Global/Modal/ExplorerLink';
 import ActionsTableRow from './Table/Row';
+import JurisdictionHistoryRow from './Table/JurisdictionHistoryRow';
+import JurisdictionRow from '../../../Producers/BlockProducers/Table/JurisdictionRow';
 
 class WalletStatusActionsTable extends Component<Props> {
   render() {
@@ -19,8 +21,11 @@ class WalletStatusActionsTable extends Component<Props> {
     } = this.props;
     const loading = (actionHistory.list.length < 1);
     let baseTable = <Table.Body />;
+    // let jurisdictionTable = <Table.Body />;
     if (!loading) {
+      console.log('#### actionHistory', actionHistory);
       let fullResults = actionHistory.list.slice(0, amount);
+      console.log('#### fullResults', fullResults);
 
       const filterSpamTransfersUnder = settings.filterSpamTransfersUnder || 0.0000;
 
@@ -50,14 +55,23 @@ class WalletStatusActionsTable extends Component<Props> {
       baseTable = (
         <Table.Body key="FullResults">
           {fullResults.map((action) => (
-            <ActionsTableRow
-              action={action}
-              blockExplorers={blockExplorers}
-              chain={chain}
-              connection={connection}
-              key={action.account_action_seq}
-              settings={settings}
-            />
+            <React.Fragment>
+              <ActionsTableRow
+                action={action}
+                blockExplorers={blockExplorers}
+                chain={chain}
+                connection={connection}
+                key={action.account_action_seq}
+                settings={settings}
+              />
+              {/* <span>Ble</span> */}
+              {/* <JurisdictionHistoryRow /> */}
+              <Table.Row>
+                <Table.Cell>
+                  <JurisdictionHistoryRow />
+                </Table.Cell>
+              </Table.Row>
+            </React.Fragment>
           ))}
         </Table.Body>
       );
@@ -99,7 +113,7 @@ class WalletStatusActionsTable extends Component<Props> {
           unstackable
         >
           <Table.Header>
-            <Table.Row>
+            {/* <Table.Row>
               <Table.HeaderCell width={6}>
                 {t('actions_table_header_one')}
               </Table.HeaderCell>
@@ -107,6 +121,17 @@ class WalletStatusActionsTable extends Component<Props> {
                 {t('actions_table_header_two')}
               </Table.HeaderCell>
               <Table.HeaderCell width={2} />
+            </Table.Row> */}
+            <Table.Row>
+              <Table.HeaderCell width={6}>
+                {t('actions_table_header_one')}
+              </Table.HeaderCell>
+              <Table.HeaderCell width={2}>
+                Jurisdictions
+              </Table.HeaderCell>
+              <Table.HeaderCell width={2}>
+                {t('actions_table_header_two')}
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Transition animation="slide down" duration={200}>

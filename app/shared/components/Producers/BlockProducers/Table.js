@@ -122,29 +122,26 @@ class ProducersTable extends Component<Props> {
             const contracts = get(connection, 'supportedContracts', []);
             const hasInfo = contracts && contracts.includes('producerinfo') && !!(get(producers.producersInfo, producer.owner));
             return (
-              <React.Fragment>
-                <ProducersTableRow
-                  addProducer={this.props.addProducer}
-                  connection={connection}
-                  getProducerInfo={this.getProducerInfo}
-                  hasInfo={hasInfo}
-                  key={`${isProxying}-${producer.key}-${hasInfo}`}
-                  isMainnet={isMainnet}
-                  isProxying={isProxying}
-                  isSelected={isSelected}
-                  isValidUser={isValidUser}
-                  position={idx + 1}
-                  producer={producer}
-                  removeProducer={this.props.removeProducer}
-                  system={system}
-                  settings={settings}
-                  totalVoteWeight={totalVoteWeight}
-                  jurisdictions={jurisdictions}
-                  actions={actions}
-                  rows={this.state.rows}
-                />
-              </React.Fragment>
-
+              <ProducersTableRow
+                addProducer={this.props.addProducer}
+                connection={connection}
+                getProducerInfo={this.getProducerInfo}
+                hasInfo={hasInfo}
+                key={`${isProxying}-${producer.key}-${hasInfo}`}
+                isMainnet={isMainnet}
+                isProxying={isProxying}
+                isSelected={isSelected}
+                isValidUser={isValidUser}
+                position={idx + 1}
+                producer={producer}
+                removeProducer={this.props.removeProducer}
+                system={system}
+                settings={settings}
+                totalVoteWeight={totalVoteWeight}
+                jurisdictions={jurisdictions}
+                actions={actions}
+                rows={this.state.rows}
+              />
             );
           })}
         </Table.Body>

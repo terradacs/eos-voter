@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Table } from 'semantic-ui-react';
+import { Table, Button, Popup } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 
 import ExplorerLink from '../../../../Global/Modal/ExplorerLink';
@@ -84,6 +84,8 @@ class WalletStatusActionsTableRow extends Component<Props> {
       return false;
     }
 
+    // console.log('#### WalletStatusActionsTableRow', blockExplorers, action, chain, connection);
+
     return (
       <Table.Row style={{ height: '60px' }}>
         <Table.Cell
@@ -97,6 +99,20 @@ class WalletStatusActionsTableRow extends Component<Props> {
             connection={connection}
             settings={settings}
           />
+        </Table.Cell>
+        <Table.Cell>
+          {/* <Button className="ui right labeled icon button">
+            <i className="down arrow icon" />
+            poland
+          </Button> */}
+          <a>poland</a>
+          {/* <Popup
+            content="Show more jurisdictions"
+            position="left center"
+            trigger={(
+              <a>poland</a>
+            )}
+          /> */}
         </Table.Cell>
         {(!generic)
           ? (
