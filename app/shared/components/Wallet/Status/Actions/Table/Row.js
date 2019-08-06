@@ -4,6 +4,8 @@ import { translate } from 'react-i18next';
 import { Table, Button, Popup } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 
+import { isEqual } from 'lodash';
+
 import ExplorerLink from '../../../../Global/Modal/ExplorerLink';
 
 import WalletStatusActionsTableRowNewaccount from './Row/Newaccount';
@@ -52,13 +54,20 @@ class WalletStatusActionsTableRow extends Component<Props> {
       generic: !(rowComponentsMapping[act.name])
     };
   }
+
+  shouldComponentUpdate = (nextProps) =>
+    !isEqual(this.props.isClicked, nextProps.isClicked);
+
   render() {
     const {
       action,
       blockExplorers,
       chain,
       connection,
-      settings
+      settings,
+      setRowVisbilitity,
+      isClicked,
+      actions
     } = this.props;
     const {
       ComponentType,
@@ -69,6 +78,8 @@ class WalletStatusActionsTableRow extends Component<Props> {
       receipt,
       trx_id
     } = action.action_trace;
+
+    // console.log('#### props block', this.props);
 
     const {
       authorization
@@ -100,20 +111,6 @@ class WalletStatusActionsTableRow extends Component<Props> {
             settings={settings}
           />
         </Table.Cell>
-        <Table.Cell>
-          {/* <Button className="ui right labeled icon button">
-            <i className="down arrow icon" />
-            poland
-          </Button> */}
-          <a>poland</a>
-          {/* <Popup
-            content="Show more jurisdictions"
-            position="left center"
-            trigger={(
-              <a>poland</a>
-            )}
-          /> */}
-        </Table.Cell>
         {(!generic)
           ? (
             <React.Fragment>
@@ -121,6 +118,7 @@ class WalletStatusActionsTableRow extends Component<Props> {
                 width={3}
               >
                 <TimeAgo date={`${action.block_time}z`} />
+                {/* <span>{action.block_num}</span> */}
               </Table.Cell>
               <Table.Cell
                 width={3}
@@ -138,6 +136,31 @@ class WalletStatusActionsTableRow extends Component<Props> {
           )
           : false
         }
+        <Table.Cell>
+          <Button
+            // disabled={!isValidUser || isProxying}
+            icon="map marker alternate"
+            size="small"
+            // onClick={isClicked = !isClicked}
+            // onClick={() => { actions.getProducerJurisdiction(producer.owner); }}
+            onClick={
+              (isClicked)
+              ? () => { setRowVisbilitity(action.account_action_seq); }
+              : () => { setRowVisbilitity(action.account_action_seq);
+                        actions.getAllProducerJurisdictionForBlock(action.block_num, action.account_action_seq);
+                        actions.getAllTransactionJurisdictions(action.block_num, action.account_action_seq);
+                      }
+            }
+          />
+          {/* <a>poland</a> */}
+          {/* <Popup
+            content="Show more jurisdictions"
+            position="left center"
+            trigger={(
+              <a>poland</a>
+            )}
+          /> */}
+        </Table.Cell>
       </Table.Row>
     );
   }

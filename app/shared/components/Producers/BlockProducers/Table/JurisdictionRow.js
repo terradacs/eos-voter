@@ -13,7 +13,7 @@ export default class JurisdictionRow extends Component<Props> {
 
     return (
       <div className="table-scroll">
-        {this.props.rows[this.props.producer] && this.props.rows[this.props.producer].length > 0 && (this.props.producer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
+        {this.props.rows[this.props.producer] && this.props.rows[this.props.producer].length > 0 && jurisdictions.PRODUCER === 'SUCCESS' &&
           <Table
             className="ui striped unstackable small jurisdiction-table"
           >
@@ -51,13 +51,13 @@ export default class JurisdictionRow extends Component<Props> {
             </Table.Body>
           </Table>
         }
-        {(!this.props.rows[this.props.producer] || this.props.rows[this.props.producer].length === 0) && jurisdictions.PRODUCER === 'PENDING' &&
+        { /* (!this.props.rows[this.props.producer] || this.props.rows[this.props.producer].length === 0) && */ jurisdictions.PRODUCER === 'PENDING' &&
           <span>Loading...</span>
         }
-        {(jurisdictions.PRODUCER === 'FAILURE' || jurisdictions.ALL === "FAILURE") &&
+        {(jurisdictions.PRODUCER === 'FAILURE' || jurisdictions.ALL === 'FAILURE') &&
           <span>Error fetching jurisdictions.</span>
         }
-        {(!this.props.rows[this.props.producer] || this.props.rows[this.props.producer].length === 0) && (this.props.producer ? jurisdictions.PRODUCER === 'SUCCESS' : true) &&
+        {(this.props.rows[this.props.producer] && this.props.rows[this.props.producer].length === 0) && jurisdictions.PRODUCER === 'SUCCESS' &&
           <span>No jurisdictions.</span>
         }
       </div>

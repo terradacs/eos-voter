@@ -6,9 +6,36 @@ import { Header, Icon, Message, Segment, Transition, Table, Button } from 'seman
 import ExplorerLink from '../../../Global/Modal/ExplorerLink';
 import ActionsTableRow from './Table/Row';
 import JurisdictionHistoryRow from './Table/JurisdictionHistoryRow';
-import JurisdictionRow from '../../../Producers/BlockProducers/Table/JurisdictionRow';
 
 class WalletStatusActionsTable extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: [],
+      // nextAction,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // if (this.props.jurisdictions.producer !== nextProps.jurisdictions.producer) {
+    //   this.setProducerJurisdiction(
+    //     nextProps.jurisdictions.producer_jurisdictions,
+    //     nextProps.jurisdictions.producer
+    //   );
+    // }
+    console.log('#### will receive', nextProps, this.props);
+  }
+
+  setRowVisbilitity = (action) => {
+    // this.setState({
+    //   nextAction: action
+    // });
+    this.state.visible[action] = !this.state.visible[action];
+    this.setState({
+      visible: this.state.visible
+    });
+  }
+
   render() {
     const {
       amount,
@@ -17,15 +44,20 @@ class WalletStatusActionsTable extends Component<Props> {
       chain,
       connection,
       settings,
+      jurisdictions,
+      actions,
       t
     } = this.props;
+
+    // console.log('#### action!!!!', this.props, jurisdictions);
+
     const loading = (actionHistory.list.length < 1);
     let baseTable = <Table.Body />;
     // let jurisdictionTable = <Table.Body />;
     if (!loading) {
-      console.log('#### actionHistory', actionHistory);
+      // console.log('#### actionHistory', actionHistory);
       let fullResults = actionHistory.list.slice(0, amount);
-      console.log('#### fullResults', fullResults);
+      // console.log('#### fullResults', fullResults);
 
       const filterSpamTransfersUnder = settings.filterSpamTransfersUnder || 0.0000;
 
@@ -54,25 +86,33 @@ class WalletStatusActionsTable extends Component<Props> {
 
       baseTable = (
         <Table.Body key="FullResults">
-          {fullResults.map((action) => (
-            <React.Fragment>
-              <ActionsTableRow
-                action={action}
-                blockExplorers={blockExplorers}
-                chain={chain}
-                connection={connection}
-                key={action.account_action_seq}
-                settings={settings}
-              />
-              {/* <span>Ble</span> */}
-              {/* <JurisdictionHistoryRow /> */}
-              <Table.Row>
-                <Table.Cell>
-                  <JurisdictionHistoryRow />
-                </Table.Cell>
-              </Table.Row>
-            </React.Fragment>
-          ))}
+          {fullResults.map((action) => {
+            const isClicked = this.state.visible[action];
+            return (
+              <React.Fragment>
+                <ActionsTableRow
+                  action={action}
+                  blockExplorers={blockExplorers}
+                  chain={chain}
+                  connection={connection}
+                  key={action.account_action_seq}
+                  settings={settings}
+                  setRowVisbilitity={this.setRowVisbilitity}
+                  isClicked={isClicked}
+                  actions={actions}
+                />
+                {/* <span>Ble</span> */}
+                {/* <JurisdictionHistoryRow /> */}
+                {this.state.visible[action.account_action_seq] &&
+                <Table.Row>
+                  <Table.Cell>
+                    <JurisdictionHistoryRow />
+                  </Table.Cell>
+                </Table.Row>
+                }
+              </React.Fragment>
+            );
+          })}
         </Table.Body>
       );
     }
@@ -127,10 +167,10 @@ class WalletStatusActionsTable extends Component<Props> {
                 {t('actions_table_header_one')}
               </Table.HeaderCell>
               <Table.HeaderCell width={2}>
-                Jurisdictions
+                {t('actions_table_header_two')}
               </Table.HeaderCell>
               <Table.HeaderCell width={2}>
-                {t('actions_table_header_two')}
+                Jurisdictions
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>

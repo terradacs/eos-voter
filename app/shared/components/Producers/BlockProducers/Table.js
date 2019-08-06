@@ -16,6 +16,7 @@ class ProducersTable extends Component<Props> {
       query: false,
       viewing: false,
       rows: [],
+      initialize: false
     };
   }
 
@@ -25,7 +26,9 @@ class ProducersTable extends Component<Props> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.jurisdictions.producer !== nextProps.jurisdictions.producer) {
+    console.log('#### will receive', this.props.jurisdictions.producer, nextProps.jurisdictions.producer, this.state.initialize);
+    if (!this.state.initialize || this.props.jurisdictions.producer !== nextProps.jurisdictions.producer) {
+      this.state.initialize = true;
       this.setProducerJurisdiction(
         nextProps.jurisdictions.producer_jurisdictions,
         nextProps.jurisdictions.producer

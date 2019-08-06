@@ -1,33 +1,58 @@
 // @flow
 import React, { Component } from 'react';
-import { Table } from 'semantic-ui-react';
+import { Table, Grid, Segment } from 'semantic-ui-react';
 
 export default class JurisdictionHistoryRow extends Component<Props> {
+
   render() {
-    // const {
-    //   codesLabel,
-    //   jurisdictionLabel,
-    //   descriptionLabel,
-    //   jurisdictions,
-    // } = this.props;
+    const {
+      // codesLabel,
+      // jurisdictionLabel,
+      // descriptionLabel,
+      jurisdictions,
+    } = this.props;
 
     return (
-      <div className="ui segment">
-        <div className="ui two column very relaxed grid">
-          <div className="column">
-            <h4>Pushed</h4>
-            <p>616 poland Republic of Poland</p>
-            <p>666 germany Federal Republic of Germany</p>
-            <p>324 Albania Republic of Albania</p>
-          </div>
-          <div className="column">
-            <h4>Producers</h4>
-            <p>616 poland Republic of Poland</p>
-          </div>
-        </div>
-        <div className="ui vertical divider" />
-      </div>
+      <Grid columns={2} divided>
+        <Grid.Row>
+          <Grid.Column>
+            {/* <label>Chosen jurisdictions</label> */}
+            <Segment>
+              <p>616 poland Republic of Poland</p>
+              <p>666 germany Federal Republic of Germany</p>
+              <p>324 Albania Republic of Albania</p>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column>
+            {/* <label>Block jurisdictions</label> */}
+            <Segment>
+              <p>616 poland Republic of Poland</p>
+            </Segment>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
+  }
+}
+
+
+// return (
+    //   <div className="ui segment">
+    //     <div className="ui two column very relaxed grid">
+    //       <div className="column">
+    //         <h4>Pushed</h4>
+    //         <p>616 poland Republic of Poland</p>
+    //         <p>666 germany Federal Republic of Germany</p>
+    //         <p>324 Albania Republic of Albania</p>
+    //       </div>
+    //       <div className="column">
+    //         <h4>Producers</h4>
+    //         <p>616 poland Republic of Poland</p>
+    //       </div>
+    //     </div>
+    //     <div className="ui vertical divider" />
+    //   </div>
+    // );
 
     // return (
     //   <div>
@@ -111,5 +136,3 @@ export default class JurisdictionHistoryRow extends Component<Props> {
     //     }
     //   </div>
     // );
-  }
-}
