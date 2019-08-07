@@ -169,7 +169,8 @@ export function getAllTransactionJurisdictions(blockNumberOrID, sequence) {
           type: types.GET_JURISDICTION_ALL_FOR_TRANSACTION_SUCCESS,
           payload: {
             sequenceTransaction: sequence,
-            transactionExtensions: results.transactions[0].trx.transaction.transaction_extensions[0].data
+            transactionExtensions: results.transactions[0].trx.transaction.transaction_extensions.length === 0 ? '' : results.transactions[0].trx.transaction.transaction_extensions[0].data
+            // transactionExtensions: results
           }
         });
       }).catch((err) => {

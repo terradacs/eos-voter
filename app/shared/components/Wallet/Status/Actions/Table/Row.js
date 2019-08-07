@@ -118,7 +118,7 @@ class WalletStatusActionsTableRow extends Component<Props> {
                 width={3}
               >
                 <TimeAgo date={`${action.block_time}z`} />
-                {/* <span>{action.block_num}</span> */}
+                <span>{action.block_num}</span>
               </Table.Cell>
               <Table.Cell
                 width={3}
@@ -146,9 +146,10 @@ class WalletStatusActionsTableRow extends Component<Props> {
             onClick={
               (isClicked)
               ? () => { setRowVisbilitity(action.account_action_seq); }
-              : () => { setRowVisbilitity(action.account_action_seq);
+              : () => {
                         actions.getAllProducerJurisdictionForBlock(action.block_num, action.account_action_seq);
                         actions.getAllTransactionJurisdictions(action.block_num, action.account_action_seq);
+                        setRowVisbilitity(action.account_action_seq);
                       }
             }
           />

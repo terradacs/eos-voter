@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Table, Grid, Segment } from 'semantic-ui-react';
+import { Table, Grid, Segment, Label } from 'semantic-ui-react';
 
 export default class JurisdictionHistoryRow extends Component<Props> {
 
@@ -9,29 +9,131 @@ export default class JurisdictionHistoryRow extends Component<Props> {
       // codesLabel,
       // jurisdictionLabel,
       // descriptionLabel,
+      leftRows,
+      rightRows,
       jurisdictions,
+      currentSequence
     } = this.props;
+
+    // console.log('#### props history row', this.props);
+
+    const styles = {
+      label: {
+        width: '100%',
+        marginBottom: '5px',
+        cursor: 'pointer'
+      },
+      segment: {
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        maxHeight: '30vh',
+        minHeight: '30vh'
+      },
+      labelText: {
+        marginBottom: '5px',
+        fontWeight: 'bold'
+      }
+    };
+
+    const fake = [
+      {
+        code: 0,
+        name: 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww',
+        description: 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
+      }
+    ];
 
     return (
       <Grid columns={2} divided>
         <Grid.Row>
-          <Grid.Column>
+          <Grid.Column className="history-scroll">
             {/* <label>Chosen jurisdictions</label> */}
-            <Segment>
-              <p>616 poland Republic of Poland</p>
-              <p>666 germany Federal Republic of Germany</p>
-              <p>324 Albania Republic of Albania</p>
-            </Segment>
+            {/* <Segment> */}
+            {leftRows.length > 0 && (currentSequence ? jurisdictions.ALL_FOR_TRANSACTION === 'SUCCESS' : true) && leftRows.map((row, idx) => (
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>{`${row.name} (${row.description})`}</p>
+            ))}
+            {leftRows.length === 0 && (currentSequence ? jurisdictions.ALL_FOR_TRANSACTION === 'SUCCESS' : true) &&
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>No jurisdictions.</p>
+            }
+            {/*leftRows.length === 0 &&*/ (currentSequence ? jurisdictions.ALL_FOR_TRANSACTION === 'PENDING' : false) &&
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>Loading...</p>
+            }
+            {currentSequence ? jurisdictions.ALL_FOR_TRANSACTION === 'FAILURE' : false &&
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>Error fetching data.</p>
+            }
+            {/* </Segment> */}
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column className="history-scroll">
             {/* <label>Block jurisdictions</label> */}
-            <Segment>
-              <p>616 poland Republic of Poland</p>
-            </Segment>
+            {/* <Segment> */}
+            {rightRows.length > 0 && (currentSequence ? jurisdictions.ALL_FOR_BLOCK === 'SUCCESS' : true) && rightRows.map((row, idx) => (
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>{`${row.name} (${row.description})`}</p>
+            ))}
+            {rightRows.length === 0 && (currentSequence ? jurisdictions.ALL_FOR_BLOCK === 'SUCCESS' : true) &&
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>No jurisdictions.</p>
+            }
+            {/*rightRows.length === 0 &&*/ (currentSequence ? jurisdictions.ALL_FOR_BLOCK === 'PENDING' : false) &&
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>Loading...</p>
+            }
+            {currentSequence ? jurisdictions.ALL_FOR_BLOCK === 'FAILURE' : false &&
+              // <Label>{`${row.code} ${row.name} (${row.description})`}</Label>
+              <p>Error fetching data.</p>
+            }
+            {/* </Segment> */}
           </Grid.Column>
         </Grid.Row>
       </Grid>
     );
+
+    // return (
+    //   <Grid columns={2} divided>
+    //     <Grid.Row>
+    //       <Grid.Column>
+    //         {/* <label>Chosen jurisdictions</label> */}
+    //         <Segment>
+    //           {this.props.leftRows.map((row, idx) => (
+    //             <p>
+    //               <span>
+    //                 {row.code}
+    //               </span>
+    //               <span>
+    //                 {row.name}
+    //               </span>
+    //               <span>
+    //                 {row.description}
+    //               </span>
+    //             </p>
+    //           ))}
+    //         </Segment>
+    //       </Grid.Column>
+    //       <Grid.Column>
+    //         {/* <label>Block jurisdictions</label> */}
+    //         <Segment>
+    //           {this.props.rightRows.map((row, idx) => (
+    //             <p>
+    //               <span>
+    //                 {row.code}
+    //               </span>
+    //               <span>
+    //                 {row.name}
+    //               </span>
+    //               <span>
+    //                 {row.description}
+    //               </span>
+    //             </p>
+    //           ))}
+    //         </Segment>
+    //       </Grid.Column>
+    //     </Grid.Row>
+    //   </Grid>
+    // );
   }
 }
 

@@ -29,6 +29,11 @@ table .jurisdiction-table {
   max-height: 200px;
 }
 
+.history-scroll {
+  overflow-y: auto;
+  max-height: 100px;
+}
+
 .confirm-scroll {
   overflow-y: auto;
   max-height: 100px;
