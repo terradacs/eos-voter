@@ -20,9 +20,33 @@ class WalletStatusActionsTable extends Component<Props> {
     };
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.jurisdictions.sequenceTransaction !== nextProps.jurisdictions.sequenceTransaction) {
+  //     this.transactionJurisdictions(
+  //       nextProps.jurisdictions.transactionExtensions,
+  //       nextProps.jurisdictions.sequenceTransaction
+  //     );
+  //     this.blockJurisdictions(
+  //       nextProps.jurisdictions.blockJurisdictions.producer_jurisdiction_for_block,
+  //       nextProps.jurisdictions.sequenceBlock
+  //     );
+  //     // this.setRowVisbilitity(nextProps.jurisdictions.sequenceBlock);
+  //   }
+
+  //   if (this.props.jurisdictions.sequenceBlock !== nextProps.jurisdictions.sequenceBlock) {
+  //     this.transactionJurisdictions(
+  //       nextProps.jurisdictions.transactionExtensions,
+  //       nextProps.jurisdictions.sequenceTransaction
+  //     );
+  //     this.blockJurisdictions(
+  //       nextProps.jurisdictions.blockJurisdictions.producer_jurisdiction_for_block,
+  //       nextProps.jurisdictions.sequenceBlock
+  //     );
+  //     // this.setRowVisbilitity(nextProps.jurisdictions.sequenceTransaction);
+  //   }
+  // }
+
   componentWillReceiveProps(nextProps) {
-    // if (this.props.jurisdictions.sequenceBlock !== nextProps.jurisdictions.sequenceBlock &&
-    //     nextProps.jurisdictions.sequenceBlock === nextProps.jurisdictions.sequenceTransaction) {
     if (this.props.jurisdictions.sequenceTransaction !== nextProps.jurisdictions.sequenceTransaction) {
       this.transactionJurisdictions(
         nextProps.jurisdictions.transactionExtensions,
@@ -30,24 +54,28 @@ class WalletStatusActionsTable extends Component<Props> {
       );
       this.blockJurisdictions(
         nextProps.jurisdictions.blockJurisdictions.producer_jurisdiction_for_block,
-        nextProps.jurisdictions.sequenceBlock
+        nextProps.jurisdictions.sequenceTransaction
       );
+      this.state.visible[nextProps.jurisdictions.sequenceTransaction] = true;
+      this.setState({
+        visible: this.state.visible
+      });
     }
 
     if (this.props.jurisdictions.sequenceBlock !== nextProps.jurisdictions.sequenceBlock) {
       this.transactionJurisdictions(
         nextProps.jurisdictions.transactionExtensions,
-        nextProps.jurisdictions.sequenceTransaction
+        nextProps.jurisdictions.sequenceBlock
       );
       this.blockJurisdictions(
         nextProps.jurisdictions.blockJurisdictions.producer_jurisdiction_for_block,
         nextProps.jurisdictions.sequenceBlock
       );
+      this.state.visible[nextProps.jurisdictions.sequenceBlock] = true;
+      this.setState({
+        visible: this.state.visible
+      });
     }
-
-    // console.log('#### will receive', nextProps, this.props);
-    // const temp = serializer.deserialize(this.props.jurisdictions.transactionExtensions);
-    // console.log('####', temp);
   }
 
   setRowVisbilitity = (action) => {
@@ -76,8 +104,6 @@ class WalletStatusActionsTable extends Component<Props> {
       });
     });
 
-    // console.log('#### leftRows', arr);
-
     this.state.leftRows[sequence] = arr;
     this.setState({
       leftRows: this.state.leftRows
@@ -103,24 +129,10 @@ class WalletStatusActionsTable extends Component<Props> {
             if (kt.code === codes[j]) {
               arr.push(jurisdictions[i]);
             }
-            // if (this.state.leftRows[sequence][k].code === codes[j]) {
-            //   arr.push(jurisdictions[i]);
-            // }
           });
-          // arr.push(jurisdictions[i]);
         }
       });
     });
-
-    // arr.forEach((it, i) => {
-    //   codes.forEach((jt, j) => {
-    //     if (jurisdictions[i].code === codes[j]) {
-    //       arr.push(jurisdictions[i]);
-    //     }
-    //   });
-    // });
-
-    // console.log('#### rightRows', arr);
 
     this.state.rightRows[sequence] = arr;
     this.setState({
@@ -141,15 +153,10 @@ class WalletStatusActionsTable extends Component<Props> {
       t
     } = this.props;
 
-    // console.log('#### action!!!!', this.props, jurisdictions);
-
     const loading = (actionHistory.list.length < 1);
     let baseTable = <Table.Body />;
-    // let jurisdictionTable = <Table.Body />;
     if (!loading) {
-      // console.log('#### actionHistory', actionHistory);
       let fullResults = actionHistory.list.slice(0, amount);
-      // console.log('#### fullResults', fullResults);
 
       const filterSpamTransfersUnder = settings.filterSpamTransfersUnder || 0.0000;
 
@@ -255,8 +262,8 @@ class WalletStatusActionsTable extends Component<Props> {
               <Table.HeaderCell width={2}>
                 {t('actions_table_header_two')}
               </Table.HeaderCell>
-              <Table.HeaderCell width={2}>
-                Jurisdictions
+              <Table.HeaderCell width={2} colSpan={2} textAlign="right">
+                {t('actions_table_header_three')}
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>

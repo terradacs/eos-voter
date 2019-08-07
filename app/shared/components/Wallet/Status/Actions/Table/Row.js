@@ -79,8 +79,6 @@ class WalletStatusActionsTableRow extends Component<Props> {
       trx_id
     } = action.action_trace;
 
-    // console.log('#### props block', this.props);
-
     const {
       authorization
     } = act;
@@ -94,8 +92,6 @@ class WalletStatusActionsTableRow extends Component<Props> {
     if (mentionedInReceiverField && mentionedInActObject) {
       return false;
     }
-
-    // console.log('#### WalletStatusActionsTableRow', blockExplorers, action, chain, connection);
 
     return (
       <Table.Row style={{ height: '60px' }}>
@@ -118,7 +114,6 @@ class WalletStatusActionsTableRow extends Component<Props> {
                 width={3}
               >
                 <TimeAgo date={`${action.block_time}z`} />
-                <span>{action.block_num}</span>
               </Table.Cell>
               <Table.Cell
                 width={3}
@@ -138,11 +133,8 @@ class WalletStatusActionsTableRow extends Component<Props> {
         }
         <Table.Cell>
           <Button
-            // disabled={!isValidUser || isProxying}
             icon="map marker alternate"
             size="small"
-            // onClick={isClicked = !isClicked}
-            // onClick={() => { actions.getProducerJurisdiction(producer.owner); }}
             onClick={
               (isClicked)
               ? () => { setRowVisbilitity(action.account_action_seq); }
@@ -153,14 +145,6 @@ class WalletStatusActionsTableRow extends Component<Props> {
                       }
             }
           />
-          {/* <a>poland</a> */}
-          {/* <Popup
-            content="Show more jurisdictions"
-            position="left center"
-            trigger={(
-              <a>poland</a>
-            )}
-          /> */}
         </Table.Cell>
       </Table.Row>
     );

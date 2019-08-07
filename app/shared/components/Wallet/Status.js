@@ -47,8 +47,6 @@ class WalletStatus extends Component<Props> {
       jurisdictions
     } = this.props;
 
-    // console.log('#### here i am');
-
     const {
       activeItem
     } = this.state;
