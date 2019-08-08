@@ -20,32 +20,6 @@ class WalletStatusActionsTable extends Component<Props> {
     };
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.jurisdictions.sequenceTransaction !== nextProps.jurisdictions.sequenceTransaction) {
-  //     this.transactionJurisdictions(
-  //       nextProps.jurisdictions.transactionExtensions,
-  //       nextProps.jurisdictions.sequenceTransaction
-  //     );
-  //     this.blockJurisdictions(
-  //       nextProps.jurisdictions.blockJurisdictions.producer_jurisdiction_for_block,
-  //       nextProps.jurisdictions.sequenceBlock
-  //     );
-  //     // this.setRowVisbilitity(nextProps.jurisdictions.sequenceBlock);
-  //   }
-
-  //   if (this.props.jurisdictions.sequenceBlock !== nextProps.jurisdictions.sequenceBlock) {
-  //     this.transactionJurisdictions(
-  //       nextProps.jurisdictions.transactionExtensions,
-  //       nextProps.jurisdictions.sequenceTransaction
-  //     );
-  //     this.blockJurisdictions(
-  //       nextProps.jurisdictions.blockJurisdictions.producer_jurisdiction_for_block,
-  //       nextProps.jurisdictions.sequenceBlock
-  //     );
-  //     // this.setRowVisbilitity(nextProps.jurisdictions.sequenceTransaction);
-  //   }
-  // }
-
   componentWillReceiveProps(nextProps) {
     if (this.props.jurisdictions.sequenceTransaction !== nextProps.jurisdictions.sequenceTransaction) {
       this.transactionJurisdictions(
@@ -202,12 +176,13 @@ class WalletStatusActionsTable extends Component<Props> {
                 />
                 {this.state.visible[action.account_action_seq] &&
                 <Table.Row>
-                  <Table.Cell className="jurisdiction-row" colSpan={100}>
+                  <Table.Cell colSpan={100}>
                     <JurisdictionHistoryRow
                       leftRows={this.state.leftRows[action.account_action_seq] ? this.state.leftRows[action.account_action_seq] : []}
                       rightRows={this.state.rightRows[action.account_action_seq] ? this.state.rightRows[action.account_action_seq] : []}
                       jurisdictions={jurisdictions}
                       currentSequence={this.state.nextSequence === action.account_action_seq}
+                      t={t}
                     />
                   </Table.Cell>
                 </Table.Row>

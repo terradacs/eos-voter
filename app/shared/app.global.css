@@ -43,6 +43,10 @@ table .jurisdiction-table {
   word-break: break-all;
 }
 
+.history-wrapper {
+  word-break: break-all;
+}
+
 .jurisdiction-button:hover {
   background-color: grey !important;
 }
@@ -61,6 +65,13 @@ table .jurisdiction-table {
   overflow: hidden !important;
   text-overflow: ellipsis;
   white-space: pre-wrap
+}
+
+label.jurisdiction-label {
+  font-weight: bold !important;
+  display: block !important;
+  text-align: center !important;
+  margin-bottom: 2%;
 }
 
 div .ui.active.visible.fluid.multiple.search.selection.dropdown>a.ui.label {

@@ -5,10 +5,8 @@ import { Table } from 'semantic-ui-react';
 export default class JurisdictionRow extends Component<Props> {
   render() {
     const {
-      codesLabel,
-      jurisdictionLabel,
-      descriptionLabel,
       jurisdictions,
+      t
     } = this.props;
 
     return (
@@ -20,13 +18,13 @@ export default class JurisdictionRow extends Component<Props> {
             <Table.Header className="fullWidth">
               <Table.Row className="active">
                 <Table.HeaderCell>
-                  {codesLabel}
+                  {t('block_producer_jurisdictions_code_table_header')}
                 </Table.HeaderCell>
                 <Table.HeaderCell>
-                  {jurisdictionLabel}
+                  {t('block_producer_jurisdictions_jurisdiction_table_header')}
                 </Table.HeaderCell>
                 <Table.HeaderCell>
-                  {descriptionLabel}
+                  {t('block_producer_jurisdictions_description_table_header')}
                 </Table.HeaderCell>
               </Table.Row>
             </Table.Header>

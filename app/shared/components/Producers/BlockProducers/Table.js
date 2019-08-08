@@ -174,6 +174,9 @@ class ProducersTable extends Component<Props> {
                     removeProducer={this.props.removeProducer}
                     settings={settings}
                     totalVoteWeight={totalVoteWeight}
+                    jurisdictions={jurisdictions}
+                    actions={actions}
+                    rows={this.state.rows}
                   />
                 );
               })}
