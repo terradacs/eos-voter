@@ -39,6 +39,12 @@ table .jurisdiction-table {
   max-height: 100px;
 }
 
+.sticky-voter-menu {
+  position: sticky !important;
+  top: 0;
+  z-index: 2;
+}
+
 .confirm-wrapper {
   word-break: break-all;
 }
