@@ -237,6 +237,14 @@ export function saveOnlyActive() {
   };
 }
 
+export function clearJurisdictionsSequence() {
+  return (dispatch: () => void) => {
+    dispatch({
+      type: types.CLEAR_JURISDICTIONS_SEQUENCE
+    });
+  };
+}
+
 export default {
   saveChoosenJurisdictions,
   saveOnlyActive,
@@ -244,5 +252,6 @@ export default {
   getProducerJurisdiction,
   getAllProducerJurisdictionForBlock,
   getAllTransactionJurisdictions,
-  getActiveJurisdictions
+  getActiveJurisdictions,
+  clearJurisdictionsSequence
 };

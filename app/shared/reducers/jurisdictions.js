@@ -148,6 +148,12 @@ export default function jurisdictions(state = initialState, action) {
         choosenJurisdictions: []
       };
     }
+    case types.CLEAR_JURISDICTIONS_SEQUENCE: {
+      return Object.assign({}, state, {
+        sequenceTransaction: -1,
+        sequenceBlock: -1
+      });
+    }
     default: {
       return state;
     }
