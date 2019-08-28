@@ -135,39 +135,32 @@ class WalletStatusActionsTableRow extends Component<Props> {
           )
           : false
         }
-        {(checkForBeos(connection)) && (<Table.Cell>
-          <Popup
-            content={t('actions_table_history_popup')}
-            hoverable
-            position="right center"
-            trigger={(
-              <Button
-                className="jurisdiction-history-button"
-                icon="map marker alternate"
-                size="small"
-                // onClick={
-                //   (isClicked)
-                //   ? () => { setRowVisbilitity(action.account_action_seq); }
-                //   : () => {
-                //             actions.getAllProducerJurisdictionForBlock(action.block_num, action.account_action_seq);
-                //             actions.getAllTransactionJurisdictions(action.block_num, action.account_action_seq);
-                //             setRowVisbilitity(action.account_action_seq);
-                //           }
-                // }
-                onClick={
-                  (isClicked)
-                  ? () => { setRowVisbilitity(action.account_action_seq); }
-                  : () => {
-                            resetReady(action.account_action_seq);
-                            actions.getAllProducerJurisdictionForBlock(action.block_num, action.account_action_seq);
-                            actions.getAllTransactionJurisdictions(action.block_num, action.account_action_seq);
-                            setRowVisbilitity(action.account_action_seq);
-                          }
-                }
-              />
-            )}
-          />
-          </Table.Cell>)}
+        {(checkForBeos(connection)) && (
+          <Table.Cell>
+            <Popup
+              content={t('actions_table_history_popup')}
+              hoverable
+              position="right center"
+              trigger={(
+                <Button
+                  className="jurisdiction-history-button"
+                  icon="map marker alternate"
+                  size="small"
+                  onClick={
+                    (isClicked)
+                    ? () => { setRowVisbilitity(action.account_action_seq); }
+                    : () => {
+                              resetReady(action.account_action_seq);
+                              actions.getAllProducerJurisdictionForBlock(action.block_num, action.account_action_seq);
+                              actions.getAllTransactionJurisdictions(action.block_num, action.account_action_seq);
+                              setRowVisbilitity(action.account_action_seq);
+                            }
+                  }
+                />
+              )}
+            />
+          </Table.Cell>
+        )}
       </Table.Row>
     );
   }

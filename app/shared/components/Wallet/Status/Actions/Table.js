@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Header, Icon, Message, Segment, Transition, Table, Button } from 'semantic-ui-react';
+import { Header, Icon, Message, Segment, Transition, Table } from 'semantic-ui-react';
 
 import ExplorerLink from '../../../Global/Modal/ExplorerLink';
 import ActionsTableRow from './Table/Row';
