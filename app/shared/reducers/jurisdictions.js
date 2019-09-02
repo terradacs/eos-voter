@@ -71,6 +71,7 @@ export default function jurisdictions(state = initialState, action) {
         ...state,
         [requestName]: requestState,
         loading: false,
+        producer: action.payload.producer
       };
     }
     case types.SET_CHOOSEN_JURISDICTIONS: {
