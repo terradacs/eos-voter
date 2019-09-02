@@ -130,11 +130,9 @@ export function getProducerJurisdiction(producer) {
       }).catch((response) => {
         return dispatch({
           type: types.GET_JURISDICTION_PRODUCER_FAILURE,
-          // producer: producer,
-          // payload: response
           payload: {
             response,
-            producer: producer
+            producer: producer,
           }
         });
       });
