@@ -120,6 +120,7 @@ class ContractInterfaceTabTables extends Component<Props> {
             >
               {(rows && rows.length > 0)
                 ? (
+                  <div className="contract-scroll">
                   <Table>
                     <Table.Header>
                       <Table.Row>
@@ -161,6 +162,7 @@ class ContractInterfaceTabTables extends Component<Props> {
                       ))}
                     </Table.Body>
                   </Table>
+                  </div>
                 )
                 : (
                   <Segment color="orange" secondary stacked>
