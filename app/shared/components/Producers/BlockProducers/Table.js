@@ -18,16 +18,20 @@ class ProducersTable extends Component<Props> {
       rows: [],
       initialize: false,
       PRODUCERS: [],
-      ALLS: []
+      ALLS: [],
+      flags: []
     };
   }
 
   componentDidMount() {
     const { actions } = this.props;
     actions.getJurisdictions();
+    // this.setProducerFlags();
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setProducerFlags();
+    // console.log('#### table', this.props);
     if (!this.state.initialize || this.props.jurisdictions.producer !== nextProps.jurisdictions.producer) {
       this.state.initialize = true;
       this.setProducerJurisdiction(
@@ -37,6 +41,15 @@ class ProducersTable extends Component<Props> {
         nextProps.jurisdictions.ALL
       );
     }
+  }
+
+  setProducerFlags = () => {
+    this.state.flags['beos.prodp'] = { class: 'eu flag', name: 'european union' };
+    this.state.flags['beos.prodd'] = { class: 'dk flag', name: 'denmark' };
+
+    this.setState({
+      flags: this.state.flags,
+    });
   }
 
   onSearchChange = debounce((e, { value }) => {
@@ -154,6 +167,7 @@ class ProducersTable extends Component<Props> {
                 rows={this.state.rows}
                 PRODUCERS={this.state.PRODUCERS}
                 ALLS={this.state.ALLS}
+                flags={this.state.flags}
               />
             );
           })}
@@ -190,6 +204,7 @@ class ProducersTable extends Component<Props> {
                     rows={this.state.rows}
                     PRODUCERS={this.state.PRODUCERS}
                     ALLS={this.state.ALLS}
+                    flags={this.state.flags}
                   />
                 );
               })}
@@ -255,6 +270,9 @@ class ProducersTable extends Component<Props> {
               <Table.HeaderCell collapsing />
               <Table.HeaderCell>
                 {t('block_producer')}
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                Jurisdiction
               </Table.HeaderCell>
               <Table.HeaderCell width={5}>
                 {producersVotedIn ? t('block_producer_total_votes') : ''}

@@ -35,8 +35,11 @@ class ProducersTableRow extends Component<Props> {
       actions,
       rows,
       PRODUCERS,
-      ALLS
+      ALLS,
+      flags
     } = this.props;
+
+    console.log('#### row', this.props, flags);
 
     const epoch = 946684800000;
     const lastProduced = (producer.last_produced_block_time * 500) + epoch;
@@ -109,7 +112,7 @@ class ProducersTableRow extends Component<Props> {
               )}
             />
             )}
-          {(producersJurisdiction) && (checkForBeos(connection)) && (
+          {/* {(producersJurisdiction) && (checkForBeos(connection)) && (
             <Popup
               hoverable
               position="left center"
@@ -133,7 +136,7 @@ class ProducersTableRow extends Component<Props> {
                 />
               )}
             />
-            )}
+            )} */}
         </Table.Cell>
         <Table.Cell
           singleLine
@@ -155,6 +158,42 @@ class ProducersTableRow extends Component<Props> {
               />
             </Header.Subheader>
           </Header>
+        </Table.Cell>
+        <Table.Cell>
+          {(flags[producer.owner]) && (producersJurisdiction) && (checkForBeos(connection)) && (
+            <Popup
+              hoverable
+              position="left center"
+              mouseEnterDelay={1000}
+              content={
+                <JurisdictionRow
+                  rows={rows}
+                  jurisdictions={jurisdictions}
+                  producer={producer.owner}
+                  PRODUCERS={PRODUCERS}
+                  ALLS={ALLS}
+                  t={t}
+                />
+              }
+              trigger={(
+                // <Button
+                //   className="jurisdiction-button"
+                //   icon="map marker alternate"
+                //   size="small"
+                //   onMouseEnter={() => { actions.getProducerJurisdiction(producer.owner); }}
+                // />
+                <a
+                  onMouseEnter={() => { actions.getProducerJurisdiction(producer.owner); }}
+                >
+                  {/* Flag | Jurisdictions */}
+                  <i className={flags[producer.owner].class}></i>{flags[producer.owner].name}
+                </a>
+              )}
+            />
+          )}
+          {!(flags[producer.owner]) && (producersJurisdiction) && (checkForBeos(connection)) && (
+            <span>No jurisdictions.</span>
+          )}
         </Table.Cell>
         <Table.Cell
           singleLine
