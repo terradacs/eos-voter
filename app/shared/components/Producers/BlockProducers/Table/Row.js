@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Button, Header, Icon, Popup, Progress, Responsive, Table } from 'semantic-ui-react';
+import { Button, Header, Icon, Popup, Progress, Responsive, Table, Flag } from 'semantic-ui-react';
 import { isEqual } from 'lodash';
 
 import DangerLink from '../../../Global/Modal/DangerLink';
@@ -39,7 +39,7 @@ class ProducersTableRow extends Component<Props> {
       flags
     } = this.props;
 
-    console.log('#### row', this.props, flags);
+    console.log('#### flag', this.props, flags);
 
     const epoch = 946684800000;
     const lastProduced = (producer.last_produced_block_time * 500) + epoch;
@@ -185,8 +185,7 @@ class ProducersTableRow extends Component<Props> {
                 <a
                   onMouseEnter={() => { actions.getProducerJurisdiction(producer.owner); }}
                 >
-                  {/* Flag | Jurisdictions */}
-                  <i className={flags[producer.owner].class}></i>{flags[producer.owner].name}
+                  <Flag name={flags[producer.owner].class}></Flag>{flags[producer.owner].name}
                 </a>
               )}
             />

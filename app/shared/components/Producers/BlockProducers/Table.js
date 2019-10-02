@@ -44,8 +44,65 @@ class ProducersTable extends Component<Props> {
   }
 
   setProducerFlags = () => {
-    this.state.flags['beos.prodp'] = { class: 'eu flag', name: 'european union' };
-    this.state.flags['beos.prodd'] = { class: 'dk flag', name: 'denmark' };
+    // this.state.flags['beos.prodp'] = { class: 'eu flag', name: 'european union' };
+    // this.state.flags['beos.prodd'] = { class: 'dk flag', name: 'denmark' };
+
+
+
+    // this.state.flags['beos.prodp'] = { class: 'eu', name: 'european union' };
+    // this.state.flags['beos.prodd'] = { class: 'dk', name: 'denmark' };
+
+    // const list = this.props.producers.list;
+
+    const list = {
+      account: false,
+      producers: {
+        lastError: false,
+        list: [
+          { last_produced_block_time: undefined,
+            owner: 'beos.prodp',
+            jurisdictions: [
+              { code: 620, name: 'portugal', description: 'Portuguese Republic' }
+            ]
+
+          },
+          { last_produced_block_time: undefined,
+            owner: 'beos.prodd',
+            jurisdictions: [
+              { code: 208, name: 'denmark', description: 'Kingdom of Denmark' }
+            ]
+
+          }
+        ]
+      }
+    };
+
+    const producers = list.producers.list;
+    console.log('#### procuders', producers);
+
+    // jurisdictions flags
+    producers.forEach((it, i) => {
+      if (producers[i].jurisdictions.length > 0) {
+        switch (producers[i].jurisdictions[0].name) {
+          case 'afghanistan': {
+            this.state.flags[producers[i].owner] = { class: 'af', name: 'afghanistan' };
+            break;
+          }
+          case 'portugal': {
+            this.state.flags[producers[i].owner] = { class: 'pt', name: 'portugal' };
+            break;
+          }
+          case 'denmark': {
+            this.state.flags[producers[i].owner] = { class: 'dk', name: 'denmark' };
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+      }
+    });
+    // jurisdictions flags
 
     this.setState({
       flags: this.state.flags,
