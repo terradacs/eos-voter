@@ -39,6 +39,10 @@ table .jurisdiction-table {
   max-height: 100px;
 }
 
+.contract-scroll {
+  overflow-x: auto;
+}
+
 .confirm-wrapper {
   word-break: break-all;
 }

@@ -120,50 +120,52 @@ class ContractInterfaceTabTables extends Component<Props> {
             >
               {(rows && rows.length > 0)
                 ? (
-                  <Table>
-                    <Table.Header>
-                      <Table.Row>
-                        {fields.map((field) => (
-                          <Table.HeaderCell>
-                            {field.name}
-                          </Table.HeaderCell>
-                        ))}
-                      </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                      {rows.map((row) => (
+                  <div className="contract-scroll">
+                    <Table>
+                      <Table.Header>
                         <Table.Row>
-                          {fields.map((field) => {
-                            let data = row[field.name];
-                            if (field.name === 'packed_transaction') {
-                              data = row.unpacked_transaction;
-                            }
-                            if (field.name === 'jurisdictions') {
-                              data = row.jurisdiction;
-                            }
-                            return (
-                              <Table.Cell verticalAlign="top">
-                                {(data instanceof Object)
-                                  ? (
-                                    <ReactJson
-                                      displayDataTypes={false}
-                                      displayObjectSize={false}
-                                      iconStyle="square"
-                                      name={null}
-                                      src={data}
-                                      style={{ padding: '1em' }}
-                                      theme="harmonic"
-                                    />
-                                  )
-                                  : data
-                                }
-                              </Table.Cell>
-                            )
-                          })}
+                          {fields.map((field) => (
+                            <Table.HeaderCell>
+                              {field.name}
+                            </Table.HeaderCell>
+                          ))}
                         </Table.Row>
-                      ))}
-                    </Table.Body>
-                  </Table>
+                      </Table.Header>
+                      <Table.Body>
+                        {rows.map((row) => (
+                          <Table.Row>
+                            {fields.map((field) => {
+                              let data = row[field.name];
+                              if (field.name === 'packed_transaction') {
+                                data = row.unpacked_transaction;
+                              }
+                              if (field.name === 'jurisdictions') {
+                                data = row.jurisdiction;
+                              }
+                              return (
+                                <Table.Cell verticalAlign="top">
+                                  {(data instanceof Object)
+                                    ? (
+                                      <ReactJson
+                                        displayDataTypes={false}
+                                        displayObjectSize={false}
+                                        iconStyle="square"
+                                        name={null}
+                                        src={data}
+                                        style={{ padding: '1em' }}
+                                        theme="harmonic"
+                                      />
+                                    )
+                                    : data
+                                  }
+                                </Table.Cell>
+                              );
+                            })}
+                          </Table.Row>
+                        ))}
+                      </Table.Body>
+                    </Table>
+                  </div>
                 )
                 : (
                   <Segment color="orange" secondary stacked>
