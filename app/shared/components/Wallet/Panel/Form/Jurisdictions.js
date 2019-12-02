@@ -1,8 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import { I18n } from 'react-i18next';
-import { Modal, Label, Form, Button, Segment, Grid, Input, Checkbox, Icon } from 'semantic-ui-react';
+import { Modal, Label, Form, Button, Segment, Grid, Input, Checkbox, Icon, Flag } from 'semantic-ui-react';
 import ReactDOM from 'react-dom';
+
+import setProperFlag from '../../../helpers/setProperFlag';
 
 export default class JurisdictionsForm extends Component<Props> {
   constructor() {
@@ -64,13 +66,15 @@ export default class JurisdictionsForm extends Component<Props> {
         let obj = j[i];
         if (j[i].description) {
           const name = `${j[i].name} (${j[i].description})`;
+          const flag = setProperFlag(j[i].name);
           obj = {
             code: j[i].code,
             value: name,
             text: name,
             name: j[i].name,
             description: j[i].description,
-            active: false
+            active: false,
+            flag
           };
         }
         this.optionsRefs[j[i].name] = React.createRef();
@@ -123,9 +127,12 @@ export default class JurisdictionsForm extends Component<Props> {
   }
 
   makeAllInactive(arr) {
+    console
     for (let i = 0; i < arr.length; i += 1) {
       arr[i].active = false;
+      arr[i].flag = setProperFlag(arr[i].name);
     }
+    console.log('#### arr', arr);
     return arr;
   }
 
@@ -652,6 +659,8 @@ export default class JurisdictionsForm extends Component<Props> {
       });
     }
 
+    console.log('####', this.state.options, this.state.choosenOptions);
+
     return (
       <I18n ns="wallet">
         {
@@ -691,7 +700,7 @@ export default class JurisdictionsForm extends Component<Props> {
                             <Segment style={styles.segment}>
                               {this.props.jurisdictions.activeLoading === false ?
                                 (this.props.jurisdictions.fetchingError === false ?
-                                  this.state.options.map((options) => <Label ref={this.optionsRefs[options.name]} key={options.code} active={options.active} onClick={() => this.clickedLabel(options, 'all')} style={styles.label}>{options.text}</Label>) :
+                                  this.state.options.map((options) => <Label ref={this.optionsRefs[options.name]} key={options.code} active={options.active} onClick={() => this.clickedLabel(options, 'all')} style={styles.label}><Flag name={options.flag}/> {options.text}</Label>) :
                                   t('jurisdictions_form_fetch_failure')) :
                                 t('jurisdictions_form_loading')}
                             </Segment>
@@ -706,7 +715,7 @@ export default class JurisdictionsForm extends Component<Props> {
                             <Segment style={styles.segment}>
                               {this.props.jurisdictions.activeLoading === false ?
                                 (this.props.jurisdictions.fetchingError === false ?
-                                  this.state.choosenOptions.map((value) => <Label ref={this.optionsRefs[value.name]} key={value.code} active={value.active} onClick={() => this.clickedLabel(value, 'yours')} style={styles.label}>{value.text}</Label>) :
+                                  this.state.choosenOptions.map((value) => <Label ref={this.optionsRefs[value.name]} key={value.code} active={value.active} onClick={() => this.clickedLabel(value, 'yours')} style={styles.label}><Flag name={value.flag}/> {value.text}</Label>) :
                                   t('jurisdictions_form_fetch_failure')) :
                                 t('jurisdictions_form_loading')}
                             </Segment>

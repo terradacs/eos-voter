@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { translate } from 'react-i18next';
-import { Button, Header, Icon, Popup, Progress, Responsive, Table } from 'semantic-ui-react';
+import { Button, Header, Icon, Popup, Progress, Responsive, Table, Flag } from 'semantic-ui-react';
 import { isEqual } from 'lodash';
 
 import DangerLink from '../../../Global/Modal/DangerLink';
@@ -9,6 +9,7 @@ import ProducersVoteWeight from '../Vote/Weight';
 import JurisdictionRow from './JurisdictionRow';
 import JurisdictionRowFlag from './JurisdictionRowFlag';
 import checkForBeos from '../../../helpers/checkCurrentBlockchain';
+import setProperFlag from '../../../helpers/setProperFlag';
 
 class ProducersTableRow extends Component<Props> {
   shouldComponentUpdate = (nextProps) =>
@@ -173,9 +174,12 @@ class ProducersTableRow extends Component<Props> {
                   onMouseEnter={() => { actions.getProducerJurisdiction(producer.owner); }}
                   style={{ cursor: 'pointer' }}
                 >
-                  <JurisdictionRowFlag
+                  {/* <JurisdictionRowFlag
                     producer={producer}
-                  />
+                  /> */}
+                  <React.Fragment>
+                    <Flag name={setProperFlag(producer.jurisdictions[0].name)} /><span>{producer.jurisdictions[0].name}</span>
+                  </React.Fragment>
                 </a>
               )}
             />
